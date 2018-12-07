@@ -1,0 +1,91 @@
+<mat-toolbar>
+  Checkout
+</mat-toolbar>
+
+<div class="checkout" *mobxAutorun>
+
+  <mat-card class="checkout__delivery">
+    <mat-form-field>
+      <input matInput required [formControl]="firstName" (keyup)="shopStore.checkout.setFirstName($event.target.value)"
+        placeholder="First Name">
+      <mat-error *ngIf="firstName.hasError('required')">You must provide first name</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput required [formControl]="lastName" (keyup)="shopStore.checkout.setLastName($event.target.value)"
+        placeholder="Last Name">
+      <mat-error *ngIf="lastName.hasError('required')">You must provide last name</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput required [formControl]="email" (keyup)="shopStore.checkout.setEmail($event.target.value)"
+        placeholder="Email">
+      <mat-error *ngIf="email.hasError('required')">You must provide email</mat-error>
+      <mat-error *ngIf="email.hasError('email')">Value is not valid email</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select required [formControl]="paymentSelect" placeholder="Payment" (selectionChange)="shopStore.checkout.setPayment($event.value)">
+        <mat-option *ngFor="let payment of paymentOptions | enumKeys" [value]="payment">
+          {{payment}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="paymentSelect.hasError('required')">You must make a selection</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select required [formControl]="deliveryOptionSelect" placeholder="Delivery option" (selectionChange)="shopStore.checkout.setDeliveryOption($event.value)">
+        <mat-option *ngFor="let delivery of deliveryOptions | enumKeys" [value]="delivery">
+          {{delivery}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="deliveryOptionSelect.hasError('required')">You must make a selection</mat-error>
+    </mat-form-field>
+  </mat-card>
+
+  <mat-card class="checkout__address">
+    <mat-form-field>
+      <input matInput required [formControl]="postCode" (keyup)="shopStore.checkout.address.setPostCode($event.target.value)"
+        placeholder="Post Code">
+      <mat-error *ngIf="postCode.hasError('required')">You must provide post code</mat-error>
+      <mat-error *ngIf="postCode.hasError('pattern')">Please provide postal code using NN-NNN pattern</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput required [formControl]="city" (keyup)="shopStore.checkout.address.setCity($event.target.value)"
+        placeholder="City">
+      <mat-error *ngIf="city.hasError('required')">You must provide city name</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput required [formControl]="street" (keyup)="shopStore.checkout.address.setStreet($event.target.value)"
+        placeholder="Street">
+      <mat-error *ngIf="street.hasError('required')">You must provide street name</mat-error>
+    </mat-form-field>
+
+    <div class="checkout__address-numbers">
+      <mat-form-field>
+        <input matInput required [formControl]="houseNumber" (keyup)="shopStore.checkout.address.setHouseNumber($event.target.value)"
+          placeholder="House number">
+        <mat-error *ngIf="houseNumber.hasError('required')">You must provide house number</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput [formControl]="apartmentNumber" placeholder="Apartment number" (keyup)="shopStore.checkout.address.setApartmentNumber($event.target.value)">
+      </mat-form-field>
+    </div>
+  </mat-card>
+
+</div>
+
+<mat-card class="checkout__actions">
+  <span>Delivery: {{shopStore.deliveryCost | currency: 'EUR'}}</span>
+  <span>Total: {{shopStore.totalShoppingCart + shopStore.deliveryCost | currency: 'EUR'}}</span>
+
+  <button mat-button (click)="validateAndProceed()">
+    <i class="material-icons">
+      assignment_turned_in
+    </i>
+    Summary
+  </button>
+</mat-card>

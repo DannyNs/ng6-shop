@@ -1,0 +1,46 @@
+<mat-toolbar>
+  Shopping cart
+</mat-toolbar>
+
+<mat-card class="shopping-cart" *mobxAutorun>
+
+  <mat-list *ngIf="shopStore.shoppingCart.length > 0; else shopping_cart_placeholder">
+
+    <div class="shopping-cart__row" *ngFor="let product of shopStore.shoppingCart; let i = index">
+
+      <mat-list-item>
+        <span class="shopping-cart__column shopping-cart__price">{{product.price| currency: 'EUR'}}</span>
+        <span class="shopping-cart__column shopping-cart__name">{{product.name}}</span>
+        <span class="shopping-cart__column shopping-cart__controls">
+          <button (click)="shopStore.removeFromShoppingCart(i)" mat-button>
+            <i class="material-icons">
+              remove_shopping_cart
+            </i>
+          </button>
+        </span>
+      </mat-list-item>
+
+      <mat-divider></mat-divider>
+
+    </div>
+
+  </mat-list>
+
+  <ng-template #shopping_cart_placeholder>
+    <div class="shopping-cart__empty-row">
+      Shopping cart is empty...
+    </div>
+  </ng-template>
+
+</mat-card>
+
+<mat-card class="shopping-cart-summary">
+  <span>Total: {{shopStore.totalShoppingCart | currency: 'EUR'}}</span>
+
+  <button mat-button *ngIf="shopStore.shoppingCart.length > 0" routerLink="/shop/checkout">
+    <i class="material-icons">
+      receipt
+    </i>
+    Checkout
+  </button>
+</mat-card>

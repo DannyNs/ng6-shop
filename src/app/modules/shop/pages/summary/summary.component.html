@@ -1,0 +1,72 @@
+<mat-toolbar>
+  Summary
+</mat-toolbar>
+
+<div class="summary" *mobxAutorun>
+
+  <mat-card class="summary__products">
+    <p class="summary__header">Ordered products</p>
+    <mat-list>
+      <mat-list-item *ngFor="let product of shopStore.shoppingCart">
+        <span>{{product.name}}</span>
+        <span>{{product.price| currency: 'EUR'}}</span>
+      </mat-list-item>
+    </mat-list>
+
+    <p class="summary__header">Selected delivery</p>
+    <mat-list>
+      <mat-list-item>
+        <span>
+          {{shopStore.checkout.deliveryOption}}
+        </span>
+        <span>
+          {{shopStore.deliveryCost | currency: 'EUR'}}
+        </span>
+      </mat-list-item>
+    </mat-list>
+
+    <p class="summary__header">Payment</p>
+    <mat-list>
+      <mat-list-item>
+        <span>
+          {{shopStore.checkout.payment}}
+        </span>
+      </mat-list-item>
+    </mat-list>
+  </mat-card>
+
+  <mat-card class="summary__delivery-data">
+    <p class="summary__header">Delivery data</p>
+    <mat-list>
+      <mat-list-item>
+        <span>{{shopStore.checkout.email}}</span>
+      </mat-list-item>
+      <mat-list-item>
+        <span>{{shopStore.checkout.firstName}}</span>
+        <span>{{shopStore.checkout.lastName}}</span>
+      </mat-list-item>
+      <mat-list-item>
+        <span>{{shopStore.checkout.address.postCode}}</span>
+        <span>{{shopStore.checkout.address.city}}</span>
+      </mat-list-item>
+      <mat-list-item>
+        <span>{{shopStore.checkout.address.street}}</span>
+        <span>{{shopStore.checkout.address.houseNumber}}</span>
+        <span *ngIf="shopStore.checkout.address.apartmentNumber">/</span>
+        <span *ngIf="shopStore.checkout.address.apartmentNumber">{{shopStore.checkout.address.apartmentNumber}}</span>
+      </mat-list-item>
+    </mat-list>
+  </mat-card>
+
+</div>
+
+<mat-card class="summary__actions" *mobxAutorun>
+  <span>Total: {{shopStore.totalShoppingCart + shopStore.deliveryCost | currency: 'EUR'}}</span>
+
+  <button mat-button (click)="goBackToShop()">
+    <i class="material-icons">
+      shop
+    </i>
+    Return to shop
+  </button>
+</mat-card>

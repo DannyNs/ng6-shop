@@ -1,0 +1,21 @@
+<mat-toolbar *mobxAutorun>
+    Shop
+
+    <mat-form-field>
+      <input matInput (keyup)="shopStore.setCategoriesFilter($event.target.value)" [value]="shopStore.categoriesFilterValue">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>    
+</mat-toolbar>
+
+<mat-grid-list [cols]="breakpoint" rowHeight="2:1" (window:resize)="onResize($event)" *mobxAutorun>
+    <a 
+      mat-list-item
+      *ngFor="let category of shopStore.categories | filterByName: shopStore.categoriesFilterValue"
+      [routerLink]="['/shop/category', category.name]"
+    >
+      <mat-grid-tile [style.background]="category.color">
+          {{category.name}}
+      </mat-grid-tile>
+    </a>
+</mat-grid-list>
+

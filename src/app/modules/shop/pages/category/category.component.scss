@@ -1,0 +1,36 @@
+.mat-card-img-wrapper {
+  margin: 10px;
+}
+
+.mat-card-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.mat-card {
+  flex: 1 1 auto;
+  margin: 10px;
+}
+
+@media screen and (min-width : 960px) {
+  .mat-card-img-wrapper {
+    height: 150px;
+
+    .mat-card-image {
+      margin-top: auto;
+      margin-left: auto;
+      max-height: 100%;
+      max-width: 100%;
+      width: unset;
+    }
+
+  }
+
+  .mat-card-actions .mat-button {
+    margin: 0 2px;
+  }
+
+  .mat-card {
+      max-width: 200px;
+  }
+}

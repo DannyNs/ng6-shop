@@ -1,0 +1,48 @@
+.summary {
+  display: flex;
+  justify-content: space-between;
+
+  &__header {
+    margin: 10px;
+    font-weight: bold;
+  }
+
+  &__products {
+    flex: 0.5;
+    margin: 10px;
+    margin-right: 5px;
+
+    /deep/ .mat-list-item-content {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  &__delivery-data {
+    flex: 0.5;
+    margin: 10px;
+    margin-left: 5px;
+
+    span {
+      margin-right: 10px;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    line-height: 36px;
+    margin: 0px 10px 10px 10px;
+    justify-content: space-between;
+  }
+}
+
+@media screen and (max-width : 960px) {
+  .summary {
+    display: block;
+
+    &__products,
+    &__delivery-data {
+      margin: 10px;
+    }
+  }
+}

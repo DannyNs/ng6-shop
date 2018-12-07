@@ -1,0 +1,58 @@
+<mat-toolbar class="return-to-parent">
+  <a [routerLink]="['/shop/category', shopStore.activeCategory.name]">
+    <i class="material-icons">
+      arrow_left_alt
+    </i>
+  </a>
+
+  {{shopStore.activeProduct.name}} - product details
+</mat-toolbar>
+
+<div class="product-details">
+
+  <div class="product-details__first-row">
+    <mat-card class="product-details__image">
+      <img *ngIf="shopStore.activeProduct.images.length > 0; else img_placeholder" [src]="shopStore.activeProduct.images[shopStore.activeProduct.activePhotoNumber].url"
+        [alt]="shopStore.activeProduct.name">
+
+      <ng-template #img_placeholder>
+        <img mat-card-image src="https://via.placeholder.com/700" alt="Image not found">
+      </ng-template>
+    </mat-card>
+
+    <mat-card class="product-details__description">
+      <h1>{{shopStore.activeProduct.name}} - {{shopStore.activeProduct.price | currency : 'EUR'}}</h1>
+      <br/>
+      {{shopStore.activeProduct.description}}
+      <br/><br/>
+      <button mat-button (click)="addToCart()">ADD TO CART</button>
+    </mat-card>
+  </div>
+
+  <div class="product-details__second-row">
+    <mat-card class="product-details__images">
+      <img *ngFor="let image of shopStore.activeProduct.images;let i = index" (click)="shopStore.activeProduct.setActivePhotoNumber(i)"
+        [src]="image.url" [alt]="shopStore.activeProduct.name">
+    </mat-card>
+
+    <mat-card class="product-details__reviews">
+      <div *ngIf="shopStore.activeProduct.reviews.length > 0; else review_placeholder">
+        <mat-list *ngFor="let review of shopStore.activeProduct.reviews">
+          <mat-list-item>
+            <mat-icon [matBadge]="review.rating" matBadgeColor="warn" matBadgePosition="below before">grade</mat-icon>
+            {{review.description}}
+          </mat-list-item>
+        </mat-list>
+      </div>
+
+      <ng-template #review_placeholder>
+        <mat-list>
+          <mat-list-item>
+            No available reviews for this product
+          </mat-list-item>
+        </mat-list>
+      </ng-template>
+    </mat-card>
+  </div>
+
+</div>

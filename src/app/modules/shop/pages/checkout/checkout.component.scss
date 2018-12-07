@@ -1,0 +1,65 @@
+.checkout {
+  display: flex;
+  justify-content: space-between;
+
+  &__address {
+    flex: 0.5;
+    margin: 10px;
+    margin-left: 5px;
+  }
+
+  &__delivery {
+    flex: 0.5;
+    margin: 10px;
+    margin-right: 5px;
+  }
+
+  &__actions {
+    display: flex;
+    line-height: 36px;
+    margin: 0px 10px 10px 10px;
+    justify-content: space-between;
+  }
+
+  &__address-numbers {
+    display: flex;
+    justify-content: space-between;
+
+    mat-form-field {
+      flex: 0.5;
+      padding: 0px 10px;
+    }
+
+    mat-form-field:first-child {
+      padding-left: 0px;
+    }
+
+    mat-form-field:last-child {
+      padding-right: 0px;
+    }
+  }
+
+  mat-form-field {
+    width: 100%;
+    margin: 0px;
+  }
+}
+
+@media screen and (max-width : 960px) {
+  .checkout {
+    display: block;
+
+    &__address,
+    &__delivery {
+      margin: 10px;
+    }
+
+    &__address-numbers {
+      display: block;
+      
+      mat-form-field {
+        padding: 0px;
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+<mat-nav-list>
+  <a mat-list-item *ngFor="let route of routeLinks" [routerLink]="route.url">
+    <mat-icon aria-label="Side nav toggle icon">{{route.icon}}</mat-icon>
+    <span>{{route.name}}</span>
+  </a>
+</mat-nav-list>
